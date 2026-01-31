@@ -357,6 +357,16 @@ function updateOrderButton() {
 async function placeOrder() {
     if (selectedProducts.length === 0) return;
 
+
+        // Add confirmation check
+    const confirmed = window.confirm(`Place order for ${selectedProducts.reduce((sum, item) => sum + item.quantity, 0)} items? Total: ${selectedProducts.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0).toFixed(2)} AED`);
+    
+    if (!confirmed) {
+        return; // User cancelled
+    }
+
+
+
     // Create order object
     const orderItems = selectedProducts.map(item => ({
         code: item.code,

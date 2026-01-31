@@ -22,6 +22,78 @@ const productImage = document.getElementById('productImage');
 const addProductBtn = document.getElementById('addProductBtn');
 
 
+
+
+// This is for the notification
+
+// Sound notification
+let lastOrderId = null; // Track last order to avoid duplicate sounds
+
+function playNotificationSound() {
+    const audio = new Audio('assets/notification1.wav');
+    audio.volume = 0.5; // 50% volume
+    audio.play().catch(e => console.log("Audio play failed:", e));
+}
+
+function checkForNewOrders() {
+    if (allOrders.length === 0) return;
+    
+    // Get the most recent order
+    const latestOrder = allOrders[0];
+    
+    // If it's a new order (different ID) and status is pending
+    if (latestOrder.id !== lastOrderId && 
+        (!latestOrder.status || latestOrder.status === 'pending')) {
+        
+        // Play sound
+        playNotificationSound();
+        
+        // Also show visual alert (optional)
+        showNewOrderAlert(latestOrder);
+        
+        // Update last order ID
+        lastOrderId = latestOrder.id;
+    }
+}
+
+// Optional: Visual alert
+function showNewOrderAlert(order) {
+    // Create alert element
+    const alert = document.createElement('div');
+    alert.className = 'new-order-alert';
+    alert.innerHTML = `
+        <div class="alert-content">
+            <i class="fas fa-bell"></i>
+            <strong>New Order Received!</strong>
+            <small>${order.items.length} items • ${order.totalPrice} AED</small>
+        </div>
+    `;
+    
+    // Add to page
+    document.body.appendChild(alert);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        alert.remove();
+    }, 3000);
+}
+
+
+
+
+
+
+
+
+
+///////////////////////////////
+
+
+
+
+
+
+
 // Admin Password (Change this to your own!)
 const ADMIN_PASSWORD = "admin123"; // TODO: Change this!
 
@@ -134,6 +206,7 @@ function startListeningToOrders() {
             });
             
             updateOrdersDisplay();
+            checkForNewOrders(); // <== New line for NOTIFICATION
             updateStats();
         }, (error) => {
             console.error('Error listening to orders:', error);

@@ -343,10 +343,11 @@ header.scrolled {
 
 /* Order button with price */
 .order-btn {
+
     background: #2ecc71;
     color: white;
     border: none;
-    padding: 18px 50px 18px 30px;
+    padding: 18px 130px 18px 35px; /* Increased right padding */
     font-size: 1.2rem;
     font-weight: 700;
     border-radius: 50px;
@@ -356,6 +357,7 @@ header.scrolled {
     gap: 10px;
     transition: background 0.3s ease;
     position: relative;
+    min-width: 200px; /* Add minimum width */
 }
 
 .order-btn:hover {
