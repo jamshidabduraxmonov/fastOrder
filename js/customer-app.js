@@ -61,15 +61,21 @@ function setupEventListeners() {
     // Order button
     orderBtn.addEventListener('click', placeOrder);
 
-    // Modal close button
+    // Modal close button with confirmation
     closeModal.addEventListener('click', () => {
-        confirmationModal.classList.remove('active');
-        // Don't reset immediately - user might close accidentally
-        setTimeout(() => {
-            selectedProducts = [];
-            updateOrderButton();
-            renderProducts();
-        }, 3000);
+        // Ask for confirmation before closing
+        const confirmed = window.confirm("Sure you have paid? Code will be lost!");
+        
+        if (confirmed) {
+            confirmationModal.classList.remove('active');
+            // Don't reset immediately - user might close accidentally
+            setTimeout(() => {
+                selectedProducts = [];
+                updateOrderButton();
+                renderProducts();
+            }, 3000);
+        }
+        // If not confirmed, do nothing - modal stays open
     });
 }
 
