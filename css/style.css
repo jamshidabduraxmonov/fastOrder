@@ -838,3 +838,84 @@ header.scrolled {
         font-size: 1rem;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================================= */
+/* FIXES FOR OVERLAPPING HEADER & ORDER BUTTON  */
+/* ============================================= */
+
+/* Increase body padding to prevent overlap */
+body {
+    padding-top: 150px !important;     /* For fixed header + category nav */
+    padding-bottom: 100px !important;  /* For bottom order button */
+}
+
+/* Ensure header has minimum height */
+header {
+    min-height: 120px;
+}
+
+/* Add margin to product grid so last item is visible above order button */
+.product-grid {
+    margin-bottom: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 140px !important;
+        padding-bottom: 90px !important;
+    }
+    
+    header {
+        min-height: 110px;
+    }
+    
+    .product-grid {
+        margin-bottom: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-top: 130px !important;
+        padding-bottom: 80px !important;
+    }
+    
+    header {
+        min-height: 100px;
+    }
+    
+    .product-grid {
+        margin-bottom: 60px;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding-top: 120px !important;
+        padding-bottom: 70px !important;
+    }
+    
+    header {
+        min-height: 90px;
+    }
+    
+    .product-grid {
+        margin-bottom: 50px;
+    }
+}
