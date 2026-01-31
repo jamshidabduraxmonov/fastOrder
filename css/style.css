@@ -1,0 +1,838 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 100px; /* Space for fixed header */
+}
+
+/* Fixed Header Styling */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Logo animation on scroll */
+.logo {
+    transition: all 0.3s ease;
+    height: 40px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.logo h1 {
+    color: #e74c3c;
+    margin-bottom: 10px;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+/* When scrolled down */
+header.scrolled .logo {
+    height: 0;
+    opacity: 0;
+}
+
+header.scrolled .logo h1 {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+header.scrolled {
+    padding: 8px 20px;
+}
+
+/* Compact Category Navigation - SMALLER BUTTONS */
+.category-nav {
+    display: flex;
+    justify-content: center;
+    gap: 6px; /* Even smaller gap */
+    flex-wrap: nowrap; /* Ensure they stay in one line */
+    margin-top: 5px;
+}
+
+.category-btn {
+    padding: 8px 14px; /* Smaller padding */
+    font-size: 0.85rem; /* Slightly smaller font */
+    font-weight: 600;
+    border: 2px solid #ddd;
+    background: white;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Prevent text wrapping */
+    flex-shrink: 0; /* Don't shrink buttons */
+    min-width: 0; /* Allow buttons to shrink a bit */
+}
+
+.category-btn.active {
+    background: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+    box-shadow: 0 3px 8px rgba(231, 76, 60, 0.25);
+}
+
+.category-btn:hover:not(.active) {
+    background: #f8f9fa;
+    border-color: #e74c3c;
+    transform: translateY(-1px);
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 20px 0;
+}
+
+/* Clickable Product Card */
+.product-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-card:hover:not(.selected) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Selected product styling */
+.product-card.selected {
+    border: 2px solid #e74c3c;
+    background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.15);
+    transform: translateY(-2px);
+}
+
+.product-card.selected .product-name {
+    color: #e74c3c;
+}
+
+/* Click hint animation */
+@keyframes pulseHint {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.product-card:not(.selected):hover {
+    animation: pulseHint 2s infinite;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.product-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+/* ORIGINAL product code styling - clean and simple */
+.product-code {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    font-family: monospace;
+    background: #f8f9fa;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.product-ingredients {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+/* Quantity Selector Styles */
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.product-card.selected .quantity-selector {
+    opacity: 1;
+    height: auto;
+    margin-top: 15px;
+}
+
+.quantity-label {
+    font-weight: 500;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    overflow: hidden;
+    background: white;
+}
+
+.quantity-btn {
+    background: none;
+    border: none;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #e74c3c;
+    transition: background 0.2s ease;
+}
+
+.quantity-btn:hover {
+    background: #f8f9fa;
+}
+
+.quantity-btn:active {
+    background: #e9ecef;
+}
+
+.quantity-input {
+    width: 40px;
+    height: 35px;
+    border: none;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    background: white;
+    -moz-appearance: textfield;
+}
+
+.quantity-input::-webkit-outer-spin-button,
+.quantity-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Quick quantity badges */
+.quantity-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e74c3c;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 3px 8px rgba(231, 76, 60, 0.3);
+    z-index: 2;
+}
+
+/* Click hints */
+.product-card:not(.selected) .product-info::before {
+    content: 'Click to select';
+    display: block;
+    background: #3498db;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:not(.selected):hover .product-info::before {
+    opacity: 1;
+}
+
+.product-card.selected .product-info::before {
+    content: 'Click to remove';
+    display: block;
+    background: #e74c3c;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card.selected:hover .product-info::before {
+    opacity: 1;
+}
+
+/* Sticky Order Button */
+.order-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    text-align: center;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.order-container.visible {
+    transform: translateY(0);
+}
+
+/* Order button with price */
+.order-btn {
+    background: #2ecc71;
+    color: white;
+    border: none;
+    padding: 18px 50px 18px 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s ease;
+    position: relative;
+}
+
+.order-btn:hover {
+    background: #27ae60;
+}
+
+.order-price {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    backdrop-filter: blur(5px);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    animation: modalSlide 0.3s ease;
+}
+
+@keyframes modalSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ORIGINAL order code styling - clean and simple */
+.order-code {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: monospace;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    color: #2c3e50;
+}
+
+.instruction {
+    color: #666;
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+.close-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #2980b9;
+}
+
+/* Order summary in confirmation modal */
+.order-summary {
+    text-align: left;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+.order-item-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.order-item-quantity {
+    background: #e74c3c;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.order-item-code {
+    font-family: monospace;
+    background: #e9ecef;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.order-item-price {
+    font-weight: 600;
+    color: #e74c3c;
+    min-width: 60px;
+    text-align: right;
+}
+
+.loading {
+    text-align: center;
+    grid-column: 1 / -1;
+    padding: 40px;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    body {
+        padding-top: 90px;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .category-nav {
+        gap: 5px;
+    }
+    
+    .category-btn {
+        padding: 7px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.8rem;
+    }
+    
+    header {
+        padding: 8px 15px;
+    }
+    
+    header.scrolled {
+        padding: 6px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+        padding-top: 85px;
+    }
+    
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .category-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+    
+    .order-code {
+        font-size: 2rem;
+        padding: 15px;
+    }
+    
+    .logo h1 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 360px) {
+    .category-btn {
+        padding: 5px 8px;
+        font-size: 0.7rem;
+    }
+    
+    .logo h1 {
+        font-size: 1.4rem;
+    }
+    
+    body {
+        padding-top: 80px;
+    }
+}
+
+
+
+
+
+
+/* Order code display - one code per line, expands downward */
+.order-code {
+    font-weight: 700;
+    font-family: monospace;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    color: #2c3e50;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* NO max-height, NO overflow-y - container expands naturally */
+    letter-spacing: normal;
+    min-height: 80px; /* Minimum height */
+    transition: min-height 0.3s ease; /* Smooth expansion */
+}
+
+/* Individual code in the order display */
+.order-code-item {
+    padding: 10px 15px;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; /* Hide overflow text with ellipsis */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Dynamic font sizing - font gets smaller for 2-5 items, then container expands */
+.order-code.one-item .order-code-item { 
+    font-size: 2.8rem; /* Largest for single item */
+    padding: 15px 20px;
+}
+.order-code.two-items .order-code-item { 
+    font-size: 2.4rem; /* Smaller for 2 items */
+    padding: 12px 18px;
+}
+.order-code.three-items .order-code-item { 
+    font-size: 2.1rem; /* Smaller for 3 items */
+    padding: 10px 16px;
+}
+.order-code.four-items .order-code-item { 
+    font-size: 1.9rem; /* Smaller for 4 items */
+    padding: 10px 15px;
+}
+.order-code.five-items .order-code-item { 
+    font-size: 1.7rem; /* Smaller for 5 items */
+    padding: 8px 14px;
+}
+.order-code.six-items .order-code-item { 
+    font-size: 1.7rem; /* Same size for 6+ items */
+    padding: 8px 14px;
+}
+.order-code.seven-items .order-code-item { 
+    font-size: 1.7rem;
+    padding: 8px 14px;
+}
+.order-code.eight-items .order-code-item { 
+    font-size: 1.7rem;
+    padding: 8px 14px;
+}
+.order-code.nine-items .order-code-item { 
+    font-size: 1.7rem;
+    padding: 8px 14px;
+}
+.order-code.ten-plus-items .order-code-item { 
+    font-size: 1.7rem;
+    padding: 8px 14px;
+}
+
+/* Expand container height for 6+ items */
+.order-code.six-items { min-height: 200px; }
+.order-code.seven-items { min-height: 240px; }
+.order-code.eight-items { min-height: 280px; }
+.order-code.nine-items { min-height: 320px; }
+.order-code.ten-plus-items { min-height: 360px; }
+
+/* For mobile */
+@media (max-width: 768px) {
+    .order-code {
+        padding: 15px;
+    }
+    
+    .order-code.one-item .order-code-item { 
+        font-size: 2.2rem;
+        padding: 12px 16px;
+    }
+    .order-code.two-items .order-code-item { 
+        font-size: 1.9rem;
+        padding: 10px 14px;
+    }
+    .order-code.three-items .order-code-item { 
+        font-size: 1.7rem;
+        padding: 8px 12px;
+    }
+    .order-code.four-items .order-code-item { 
+        font-size: 1.5rem;
+        padding: 8px 12px;
+    }
+    .order-code.five-items .order-code-item { 
+        font-size: 1.4rem;
+        padding: 7px 11px;
+    }
+    .order-code.six-items .order-code-item,
+    .order-code.seven-items .order-code-item,
+    .order-code.eight-items .order-code-item,
+    .order-code.nine-items .order-code-item,
+    .order-code.ten-plus-items .order-code-item { 
+        font-size: 1.3rem;
+        padding: 6px 10px;
+    }
+    
+    /* Smaller expansion on mobile */
+    .order-code.six-items { min-height: 180px; }
+    .order-code.seven-items { min-height: 210px; }
+    .order-code.eight-items { min-height: 240px; }
+    .order-code.nine-items { min-height: 270px; }
+    .order-code.ten-plus-items { min-height: 300px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* Modal Styles - FIXED FOR SCROLLING AND CLOSING */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 2000; /* Higher than header */
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; /* Allow modal to scroll if content is too tall */
+    padding: 20px; /* Add some padding around modal */
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh; /* Limit height to 90% of viewport */
+    overflow-y: auto; /* Allow content to scroll if too tall */
+    text-align: center;
+    animation: modalSlide 0.3s ease;
+    position: relative;
+    margin: auto; /* Center in viewport */
+}
+
+/* Close button at top-right corner */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Close button inside modal (keep the original too) */
+.close-btn {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.close-btn:hover {
+    background: #2980b9;
+}
+
+/* Make order summary scrollable if too many items */
+.order-summary {
+    text-align: left;
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Ensure modal is scrollable on very small screens */
+@media (max-width: 480px) {
+    .modal {
+        padding: 10px;
+        align-items: flex-start; /* Start from top on mobile */
+        padding-top: 40px; /* Leave space for close button */
+    }
+    
+    .modal-content {
+        padding: 30px 20px;
+        max-height: 85vh;
+        margin-top: 0;
+    }
+    
+    .modal-close-btn {
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+    }
+}

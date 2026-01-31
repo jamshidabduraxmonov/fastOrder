@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order - Admin Panel</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+    <!-- Password Protection Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-box">
+            <h2>🔐 Admin Access</h2>
+            <input type="password" id="adminPassword" placeholder="Enter admin password" autofocus>
+            <button id="loginBtn">Enter Admin Panel</button>
+            <p class="hint">Run this page locally only</p>
+        </div>
+    </div>
+
+    <!-- Main Admin Panel (Hidden until authenticated) -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <!-- Header -->
+        <header class="admin-header">
+            <h1><i class="fas fa-tools"></i> Food Order Admin</h1>
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </header>
+
+        <main class="admin-main">
+            <!-- Left Column: Order Management -->
+            <div class="admin-column">
+                <div class="admin-section">
+                    <h2><i class="fas fa-clock"></i> Live Orders</h2>
+                    <div class="orders-container" id="ordersContainer">
+                        <div class="empty-orders">
+                            <i class="fas fa-concierge-bell"></i>
+                            <p>Waiting for orders...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Product Management -->
+            <div class="admin-column">
+                <div class="admin-section">
+                    <h2><i class="fas fa-hamburger"></i> Products</h2>
+                    
+                    <!-- Add Product Form -->
+                    <div class="add-product-form">
+                        <h3>Add New Product</h3>
+                        <input type="text" id="productName" placeholder="Product Name" required>
+                        <input type="text" id="productCode" placeholder="5-digit Code (e.g., 73314)" required>
+                        <input type="number" id="productPrice" placeholder="Price (AED)" step="0.01" required>
+                        <select id="productCategory">
+                            <option value="sandwiches">Sandwiches/Wraps</option>
+                            <option value="croissants">Croissants/Muffins</option>
+                            <option value="coffee">Starbucks Coffee</option>
+                        </select>
+                        <textarea id="productIngredients" placeholder="Ingredients (optional)"></textarea>
+                        <input type="text" id="productImage" placeholder="Image URL (optional)">
+                        <button id="addProductBtn" class="add-btn">
+                            <i class="fas fa-plus"></i> Add Product
+                        </button>
+                    </div>
+
+                    <!-- Product List -->
+                    <div class="product-list-container">
+                        <h3>Current Products</h3>
+                        <div class="product-list" id="productList">
+                            <div class="loading-products">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                <p>Loading products...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Stats Footer -->
+        <footer class="admin-footer">
+            <div class="stat">
+                <span class="stat-label">Total Orders Today:</span>
+                <span class="stat-value" id="totalOrders">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Active Products:</span>
+                <span class="stat-value" id="activeProducts">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Pending Orders:</span>
+                <span class="stat-value" id="pendingOrders">0</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Same Firebase config as customer app
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_2Uw6GfCexWEH4NXjzVNoz-X2Qs-sXTQ",
+            authDomain: "foodorder-ba72c.firebaseapp.com",
+            projectId: "foodorder-ba72c",
+            storageBucket: "foodorder-ba72c.firebasestorage.app",
+            messagingSenderId: "636321354656",
+            appId: "1:636321354656:web:45f02acdb8435b5c71508ac5",
+            measurementId: "G-W3LVRBJZPL"
+        };
+        
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+        const storage = firebase.storage(app);
+    </script>
+    
+    <script src="./js/admin-app.js"></script>
+</body>
+</html>

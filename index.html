@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Order - Quick Menu</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style src="./css/style.css">
+        /* Add all the CSS from earlier here */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif; background: #f8f9fa; color: #333; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        /* ... paste all the CSS styles from earlier ... */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo"><h1>🍔 Food Order</h1></div>
+        <nav class="category-nav">
+            <!-- REMOVED: <button class="category-btn active" data-category="all">All Items</button> -->
+            <button class="category-btn active" data-category="sandwiches">Sandwiches/Wraps</button>
+            <button class="category-btn" data-category="croissants">Croissants/Muffins</button>
+            <button class="category-btn" data-category="coffee">Starbucks Coffee</button>
+        </nav>
+    </header>
+
+    <main class="product-grid" id="productGrid">
+        <div class="loading">Loading menu...</div>
+    </main>
+
+    <div class="order-container" id="orderContainer">
+    <button class="order-btn" id="orderBtn">
+        <i class="fas fa-shopping-cart"></i> 
+        Order! (<span id="itemCount">0</span> items)
+        <!-- Price will be inserted here by JavaScript -->
+    </button>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+<div class="modal" id="confirmationModal">
+    <div class="modal-content">
+        <!-- Close button at top-right -->
+        <button class="modal-close-btn" id="modalCloseBtn">×</button>
+        
+        <h2>✅ Order Placed!</h2>
+        <p>Show this code to the cashier:</p>
+        
+        <div class="order-code" id="orderCodeDisplay">
+            <!-- Product codes will appear here -->
+        </div>
+        
+        <div class="order-summary" id="orderSummaryDisplay">
+            <!-- Order items with quantities will appear here -->
+        </div>
+        
+        <p class="instruction">Your order has been received. Please proceed to payment.</p>
+        
+        <!-- Original close button at bottom -->
+        <button class="close-btn" id="closeModal">Close</button>
+    </div>
+</div>
+
+    <!-- FIREBASE CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyD_2Uw6GfCexWEH4NXjzVNoz-X2Qs-sXTQ",
+            authDomain: "foodorder-ba72c.firebaseapp.com",
+            projectId: "foodorder-ba72c",
+            storageBucket: "foodorder-ba72c.firebasestorage.app",
+            messagingSenderId: "636321354656",
+            appId: "1:636321354656:web:45f02acdb8435b5c71508ac5",
+            measurementId: "G-W3LVRBJZPL"
+        };
+        
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore(app);
+        
+       </script>
+
+       <!-- ADD this line to load the external JS -->
+    <script src="./js/customer-app.js"></script>
+
+    </body>
+</html>
